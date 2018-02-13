@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "494462441894",
+    "firebase_url": "https://kiranaa-91792.firebaseio.com",
+    "project_id": "kiranaa-91792",
+    "storage_bucket": "kiranaa-91792.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:494462441894:android:d9814f89e61807a9",
+        "android_client_info": {
+          "package_name": "com.example.batman.kiranaa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "494462441894-bpk1h01vc28ldsjokl9f8gcqii252o7i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.batman.kiranaa",
+            "certificate_hash": "cdf166d97d764f80ce3437be396a759f28d1081a"
+          }
+        },
+        {
+          "client_id": "494462441894-ro4hsrgbvi45dbcd1iof70rdmmt3otbo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnmQIm5OCDotUdAuCBnd2YVFMumW-aoQo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "494462441894-ro4hsrgbvi45dbcd1iof70rdmmt3otbo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
