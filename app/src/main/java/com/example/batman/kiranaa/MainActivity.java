@@ -1,5 +1,7 @@
 package com.example.batman.kiranaa;
 
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -70,6 +72,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(MainActivity.this,categoryList.get(i), Toast.LENGTH_SHORT).show();
+                Products products = new Products();
+                FragmentManager manager = getFragmentManager();
+               // manager.beginTransaction().replace(R.id.ac,products).commit();
 
             }
         });
