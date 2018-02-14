@@ -1,5 +1,6 @@
 package com.example.batman.kiranaa;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -67,14 +68,16 @@ public class MainActivity extends AppCompatActivity
         } ;
         categoryListView.setAdapter(firebaseListAdapter);
         
-        
+
         categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(MainActivity.this,categoryList.get(i), Toast.LENGTH_SHORT).show();
                 Products products = new Products();
+                Fragment fragment = new Products();
                 FragmentManager manager = getFragmentManager();
-               // manager.beginTransaction().replace(R.id.ac,products).commit();
+                manager.beginTransaction()
+                        .replace(R.id.main_Activity,fragment,fragment.getClass().getSimpleName()).addToBackStack(null).commit();
 
             }
         });

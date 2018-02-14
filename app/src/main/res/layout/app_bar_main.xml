@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.batman.kiranaa.MainActivity">
+    tools:context="com.example.batman.kiranaa.MainActivity"
+    android:id="@+id/main_Activity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
