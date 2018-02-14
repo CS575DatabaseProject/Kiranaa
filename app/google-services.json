@@ -10,15 +10,23 @@
       "client_info": {
         "mobilesdk_app_id": "1:784886199188:android:6e7d5a666817001b",
         "android_client_info": {
-          "package_name": "com.example.tarun.kiranaa"
+          "package_name": "com.example.batman.kiranaa"
         }
       },
       "oauth_client": [
         {
+          "client_id": "784886199188-126hq28q454fgms0gi3p80vhoed32h18.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.batman.kiranaa",
+            "certificate_hash": "cdf166d97d764f80ce3437be396a759f28d1081a"
+          }
+        },
+        {
           "client_id": "784886199188-5d2211j1ta34b5kpscj6np0nmi8rodvd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.tarun.kirana",
+            "package_name": "com.example.batman.kiranaa",
             "certificate_hash": "a628d193ea35e01cce437ceae72e46767f2f09b6"
           }
         },

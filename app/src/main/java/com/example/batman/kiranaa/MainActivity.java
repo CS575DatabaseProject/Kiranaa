@@ -1,4 +1,4 @@
-package com.example.tarun.kiranaa;
+package com.example.batman.kiranaa;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,26 +12,69 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseListAdapter;
+import com.firebase.ui.database.FirebaseListOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private ListView categoryListView;
-    @Override
+
+//        objects for listview, firebaseadapter and firebaselistoption initialize
+        private ListView categoryListView;
+        private FirebaseListAdapter<String> firebaseListAdapter;
+        private FirebaseListOptions<String> options ;
+        ArrayList<String> categoryList = new ArrayList<String>();
+
+        @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //settings for list view
+        //categorylistview initialized
         categoryListView = (ListView) findViewById(R.id.category_listview);
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://kiranaa-575.firebaseio.com/Categories");
 
+        //database for categories initialized
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl("https://kiranaa-575.firebaseio.com/Categories");
 
+        //setting the arguments for firebase list adapter
+        options = new FirebaseListOptions.Builder<String>().setQuery(databaseReference,String.class)
+               .setLayout(android.R.layout.simple_list_item_1)
+                .build();
+
+        firebaseListAdapter = new FirebaseListAdapter<String>(
+                options){
+            @Override
+            protected void populateView(View v, String model, int position) {
+                TextView textView = (TextView) v.findViewById(android.R.id.text1);
+                categoryList.add(model);
+                textView.setText(model);
+                Toast.makeText(MainActivity.this, model, Toast.LENGTH_SHORT).show();
+            }
+        } ;
+        categoryListView.setAdapter(firebaseListAdapter);
+        
+        
+        categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(MainActivity.this,categoryList.get(i), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        
+        
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -41,6 +84,20 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseListAdapter.startListening();
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        firebaseListAdapter.stopListening();
+    }
+
 
     @Override
     public void onBackPressed() {
