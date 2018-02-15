@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String value = dataSnapshot.getValue(String.class);
                 categoryList.add(value);
+
                 init();
             }
 
@@ -110,18 +111,6 @@ public class MainActivity extends AppCompatActivity
         categoryListView.setAdapter(categoryCardListAdapter);
     }
 
-  /*  @Override
-    protected void onStart() {
-        super.onStart();
-        firebaseListAdapter.startListening();
-    }*/
-
-
-   /* @Override
-    protected void onStop() {
-        super.onStop();
-        firebaseListAdapter.stopListening();
-    }*/
 
 
     @Override

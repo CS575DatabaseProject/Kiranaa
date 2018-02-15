@@ -3,13 +3,21 @@ package com.example.batman.kiranaa;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -21,12 +29,14 @@ public class CategoryCardListAdapter extends BaseAdapter {
     Intent intent;
     Context context;
     ArrayList<String> category = new ArrayList<String>();
+    StorageReference storageReference ;
     private static LayoutInflater inflater=null;
 
     public CategoryCardListAdapter (MainActivity mainActivity, ArrayList<String> categoryList){
         context = mainActivity;
         category = categoryList;
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        storageReference = FirebaseStorage.getInstance().getReference();
     }
     @Override
     public int getCount() {
@@ -44,16 +54,29 @@ public class CategoryCardListAdapter extends BaseAdapter {
     }
     public class Holder{
         TextView textView ;
+        ImageView imageView;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
+        StorageReference filepath = storageReference.child("Categories").child("Cleaners.png");
+        /*filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Uri uriDownload =
+            }
+        });*/
+        Toast.makeText(context, ""+filepath, Toast.LENGTH_SHORT).show();
         final int position = i;
         Holder holder=new Holder();
         View categoryView;
         categoryView = inflater.inflate(R.layout.category_card_list, null);
         holder.textView = (TextView) categoryView.findViewById(R.id.category_text);
+        holder.imageView = (ImageView) categoryView.findViewById(R.id.category_image);
         holder.textView.setText(category.get(i));
+        /*Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(imageView);*/
+        //Picasso.with(context).load("gs://kiranaa-575.appspot.com/Categories/Cleaners.png").resize(100,90).into(holder.imageView);
+        Glide.with(context).load("https://firebasestorage.googleapis.com/v0/b/kiranaa-575.appspot.com/o/Categories%2FCleaners.png?alt=media&token=e6f157dc-f765-451d-a6a7-76fbbcdded78").into(holder.imageView);
         categoryView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
