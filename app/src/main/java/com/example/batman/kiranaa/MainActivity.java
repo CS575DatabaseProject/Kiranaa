@@ -2,10 +2,13 @@ package com.example.batman.kiranaa;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,67 +25,72 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseListOptions;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-//        objects for listview, firebaseadapter and firebaselistoption initialize
+
+        //objects for listview, firebaseadapter and firebaselistoption initialize
+        private static Context context;
         private ListView categoryListView;
         private FirebaseListAdapter<String> firebaseListAdapter;
         private FirebaseListOptions<String> options ;
-        ArrayList<String> categoryList = new ArrayList<String>();
-
-        @Override
+        private static ArrayList<String> categoryList = new ArrayList<String>();
+        private CategoryCardListAdapter categoryCardListAdapter;
+        private DatabaseReference databaseReference;
+/*-------------------------------------------OnCreate Method----------------------------------------------------------------------------------------------*/
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
+        //database for categories initialized
+        databaseReference = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl("https://kiranaa-575.firebaseio.com/Categories");
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String value = dataSnapshot.getValue(String.class);
+                categoryList.add(value);
+                init();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //categorylistview initialized
         categoryListView = (ListView) findViewById(R.id.category_listview);
 
-        //database for categories initialized
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance()
-                .getReferenceFromUrl("https://kiranaa-575.firebaseio.com/Categories");
 
-        //setting the arguments for firebase list adapter
-        options = new FirebaseListOptions.Builder<String>().setQuery(databaseReference,String.class)
-               .setLayout(android.R.layout.simple_list_item_1)
-                .build();
 
-        firebaseListAdapter = new FirebaseListAdapter<String>(
-                options){
-            @Override
-            protected void populateView(View v, String model, int position) {
-                TextView textView = (TextView) v.findViewById(android.R.id.text1);
-                categoryList.add(model);
-                textView.setText(model);
-                Toast.makeText(MainActivity.this, model, Toast.LENGTH_SHORT).show();
-            }
-        } ;
-        categoryListView.setAdapter(firebaseListAdapter);
-        
-
-        categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(MainActivity.this,categoryList.get(i), Toast.LENGTH_SHORT).show();
-                Products products = new Products();
-                Fragment fragment = new Products();
-                FragmentManager manager = getFragmentManager();
-                manager.beginTransaction()
-                        .replace(R.id.main_Activity,fragment,fragment.getClass().getSimpleName()).addToBackStack(null).commit();
-
-            }
-        });
-        
-        
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -92,19 +100,28 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+    /*----------------------------------------------End of OnCreate Method----------------------------------------------------------------------------------------*/
+    public static void onClickListnerFunction(int position){
+        Log.v("Name",""+ categoryList.get(position));
 
-    @Override
+    }
+    public void init(){
+        categoryCardListAdapter = new CategoryCardListAdapter(MainActivity.this,categoryList);
+        categoryListView.setAdapter(categoryCardListAdapter);
+    }
+
+  /*  @Override
     protected void onStart() {
         super.onStart();
         firebaseListAdapter.startListening();
-    }
+    }*/
 
 
-    @Override
+   /* @Override
     protected void onStop() {
         super.onStop();
         firebaseListAdapter.stopListening();
-    }
+    }*/
 
 
     @Override
@@ -116,6 +133,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+    /*--------------------------------------------------------------------------------------------------------------------------------------*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -125,7 +143,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
+    /*---------------------------------------------------------------------------------------------------------------------------------------*/
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
