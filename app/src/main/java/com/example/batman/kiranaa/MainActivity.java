@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity
         private StorageReference storageReference;
         private StorageReference filepath;
         private ArrayList<String> url = new ArrayList<String>();
+        private ArrayList<String> categoryKey = new ArrayList<String>();
 /*-------------------------------------------OnCreate Method----------------------------------------------------------------------------------------------*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +70,12 @@ public class MainActivity extends AppCompatActivity
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                /*---------------Setting up all the  variables----------------------*/
                 String value = dataSnapshot.getValue(String.class);
                 categoryList.add(value);
+                String key = dataSnapshot.getKey();
+                categoryKey.add(key);
+                /*----------------Getting the filepath for every image-------------*/
                 filepath = storageReference.child("Categories").child(value+".jpg");
                 Log.v("filepath is",""+filepath);
                 filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -99,7 +104,11 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                String value = dataSnapshot.getValue(String.class);
+                String key = dataSnapshot.getKey();
+                int index = categoryKey.indexOf(key);
+                categoryList.set(index,value);
+                init();
             }
 
             @Override
