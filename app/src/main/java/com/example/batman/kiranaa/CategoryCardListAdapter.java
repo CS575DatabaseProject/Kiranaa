@@ -4,6 +4,7 @@ package com.example.batman.kiranaa;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.constraint.solver.widgets.Snapshot;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,14 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -29,14 +35,14 @@ public class CategoryCardListAdapter extends BaseAdapter {
     Intent intent;
     Context context;
     ArrayList<String> category = new ArrayList<String>();
-    StorageReference storageReference ;
     private static LayoutInflater inflater=null;
+    ArrayList<String> urlToImg = new ArrayList<String>();
 
-    public CategoryCardListAdapter (MainActivity mainActivity, ArrayList<String> categoryList){
+    public CategoryCardListAdapter (MainActivity mainActivity, ArrayList<String> categoryList, ArrayList<String> url){
         context = mainActivity;
         category = categoryList;
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        storageReference = FirebaseStorage.getInstance().getReference();
+        urlToImg = url;
     }
     @Override
     public int getCount() {
@@ -59,14 +65,8 @@ public class CategoryCardListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        StorageReference filepath = storageReference.child("Categories").child("Cleaners.png");
-        /*filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Uri uriDownload =
-            }
-        });*/
-        Toast.makeText(context, ""+filepath, Toast.LENGTH_SHORT).show();
+
+        //https://firebasestorage.googleapis.com/v0/b/kiranaa-575.appspot.com/o/Categories%2FCleaners.png?alt=media&token=e6f157dc-f765-451d-a6a7-76fbbcdded78
         final int position = i;
         Holder holder=new Holder();
         View categoryView;
@@ -76,11 +76,11 @@ public class CategoryCardListAdapter extends BaseAdapter {
         holder.textView.setText(category.get(i));
         /*Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(imageView);*/
         //Picasso.with(context).load("gs://kiranaa-575.appspot.com/Categories/Cleaners.png").resize(100,90).into(holder.imageView);
-        Glide.with(context).load("https://firebasestorage.googleapis.com/v0/b/kiranaa-575.appspot.com/o/Categories%2FCleaners.png?alt=media&token=e6f157dc-f765-451d-a6a7-76fbbcdded78").into(holder.imageView);
+        Glide.with(context).load(urlToImg.get(i)).into(holder.imageView);
         categoryView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Toast.makeText(context,category.get(position), Toast.LENGTH_SHORT).show();*/
+                Toast.makeText(context,category.get(position), Toast.LENGTH_SHORT).show();
                 MainActivity.onClickListnerFunction(position);
             }
         });
@@ -89,3 +89,27 @@ public class CategoryCardListAdapter extends BaseAdapter {
 
 
 }
+/*------for the image upload--------------
+*         storageReference = FirebaseStorage.getInstance().getReference();
+
+*           final StorageReference filepath = storageReference.child("Categories").child("Cleaners.png");
+
+        filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Toast.makeText(context, "here", Toast.LENGTH_SHORT).show();
+            }
+
+
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(Exception exception) {
+                Toast.makeText(context, ""+exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+*
+*     StorageReference storageReference ;
+
+*
+*
+* */

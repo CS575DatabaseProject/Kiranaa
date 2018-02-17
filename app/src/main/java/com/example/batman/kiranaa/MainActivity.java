@@ -5,10 +5,12 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.util.TimeUtils;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,14 +27,19 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseListOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,6 +53,9 @@ public class MainActivity extends AppCompatActivity
         private static ArrayList<String> categoryList = new ArrayList<String>();
         private CategoryCardListAdapter categoryCardListAdapter;
         private DatabaseReference databaseReference;
+        private StorageReference storageReference;
+        private StorageReference filepath;
+        private ArrayList<String> url = new ArrayList<String>();
 /*-------------------------------------------OnCreate Method----------------------------------------------------------------------------------------------*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +64,37 @@ public class MainActivity extends AppCompatActivity
         //database for categories initialized
         databaseReference = FirebaseDatabase.getInstance()
                 .getReferenceFromUrl("https://kiranaa-575.firebaseio.com/Categories");
+        storageReference = FirebaseStorage.getInstance().getReference();
+
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String value = dataSnapshot.getValue(String.class);
                 categoryList.add(value);
+                filepath = storageReference.child("Categories").child(value+".jpg");
+                Log.v("filepath is",""+filepath);
+                filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                            Log.v("url is",""+uri);
+                            url.add(uri.toString());
+                            init();
+                    }
 
-                init();
+
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(Exception exception) {
+                        Log.v("error is",""+exception.getMessage());
+                    }
+                });
+                Log.v("value is",""+value);
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
@@ -107,7 +141,7 @@ public class MainActivity extends AppCompatActivity
 
     }
     public void init(){
-        categoryCardListAdapter = new CategoryCardListAdapter(MainActivity.this,categoryList);
+        categoryCardListAdapter = new CategoryCardListAdapter(MainActivity.this,categoryList,url);
         categoryListView.setAdapter(categoryCardListAdapter);
     }
 
