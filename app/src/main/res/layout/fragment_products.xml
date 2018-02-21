@@ -3,8 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.batman.kiranaa.Products">
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello World"/>
+        android:background="@drawable/main_background">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/productsList"></ListView>
+
+
+
+    </RelativeLayout>
+
 </FrameLayout>

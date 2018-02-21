@@ -1,10 +1,13 @@
 package com.example.batman.kiranaa;
 
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.constraint.solver.widgets.Snapshot;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,8 +83,11 @@ public class CategoryCardListAdapter extends BaseAdapter {
         categoryView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,category.get(position), Toast.LENGTH_SHORT).show();
-                MainActivity.onClickListnerFunction(position);
+//                Toast.makeText(context,category.get(position), Toast.LENGTH_SHORT).show();
+//                MainActivity.onClickListnerFunction(position);
+                Fragment products = new Products();
+                android.app.FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_main, products).commit();
             }
         });
         return categoryView;

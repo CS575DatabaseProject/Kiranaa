@@ -7,7 +7,8 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.batman.kiranaa.MainActivity"
     tools:showIn="@layout/app_bar_main"
-    android:id="@+id/content_main">
+    android:id="@+id/content_main"
+    android:background="@drawable/main_background">
 
         <ListView
             android:layout_width="match_parent"
