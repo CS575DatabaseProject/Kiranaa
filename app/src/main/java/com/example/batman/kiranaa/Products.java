@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 
@@ -37,6 +38,7 @@ public class Products extends Fragment {
     private DatabaseReference databaseReference;
     private Products context = this;
     ArrayList<String> productList = new ArrayList<String>();
+    HashMap<String,Integer> productCart = new HashMap<>();
 //    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
 //            this,
 //            android.R.layout.simple_list_item_1,
@@ -64,6 +66,7 @@ public class Products extends Fragment {
                 String key = dataSnapshot.getKey();
                 productList.add(key);
                 Log.v("hi",""+key);
+                productCart.put(key,0);
                 populate();
 
             }
@@ -95,7 +98,7 @@ public class Products extends Fragment {
     }
     public void populate(){
         Log.v("populate","at the funcion");
-        ProductsCardListAdapter productsCardListAdapter = new ProductsCardListAdapter(context,productList);
+        ProductsCardListAdapter productsCardListAdapter = new ProductsCardListAdapter(context,productList,productCart);
         productsListview.setAdapter(productsCardListAdapter);
     }
 

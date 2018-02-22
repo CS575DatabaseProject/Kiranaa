@@ -30,9 +30,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-/**
- * Created by tarun on 2/14/2018.
- */
+
 
 public class CategoryCardListAdapter extends BaseAdapter {
     Context context;
@@ -67,23 +65,25 @@ public class CategoryCardListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-
-        //https://firebasestorage.googleapis.com/v0/b/kiranaa-575.appspot.com/o/Categories%2FCleaners.png?alt=media&token=e6f157dc-f765-451d-a6a7-76fbbcdded78
+        //Declaring all the variables
         final int position = i;
         Holder holder=new Holder();
         View categoryView;
+
+        //Inflating the view
         categoryView = inflater.inflate(R.layout.category_card_list, null);
+        //initialising the variable of class Holder
         holder.textView = (TextView) categoryView.findViewById(R.id.category_text);
         holder.imageView = (ImageView) categoryView.findViewById(R.id.category_image);
+
+        //Setting the text and the image of the card with the values received from mainActivity
         holder.textView.setText(category.get(i));
-        /*Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(imageView);*/
-        //Picasso.with(context).load("gs://kiranaa-575.appspot.com/Categories/Cleaners.png").resize(100,90).into(holder.imageView);
         Glide.with(context).load(urlToImg.get(i)).into(holder.imageView);
+
+        //On click should go to respective category products
         categoryView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(context,category.get(position), Toast.LENGTH_SHORT).show();
-//                MainActivity.onClickListnerFunction(position);
                 Fragment products = new Products();
                 android.app.FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.content_main, products).commit();
@@ -94,27 +94,3 @@ public class CategoryCardListAdapter extends BaseAdapter {
 
 
 }
-/*------for the image upload--------------
-*         storageReference = FirebaseStorage.getInstance().getReference();
-
-*           final StorageReference filepath = storageReference.child("Categories").child("Cleaners.png");
-
-        filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Toast.makeText(context, "here", Toast.LENGTH_SHORT).show();
-            }
-
-
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(Exception exception) {
-                Toast.makeText(context, ""+exception.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-*
-*     StorageReference storageReference ;
-
-*
-*
-* */
