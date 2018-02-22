@@ -156,32 +156,34 @@ public class MainActivity extends AppCompatActivity
 
     /*----------------------------------------------End of OnCreate Method----------------------------------------------------------------------------------------*/
 
-    public static void onClickListnerFunction(int position){
-        Log.v("Name",""+ categoryList.get(position));
 
-    }
     public void init(){
         categoryCardListAdapter = new CategoryCardListAdapter(MainActivity.this,categoryList,url);
         categoryListView.setAdapter(categoryCardListAdapter);
     }
 
-
-
+  /*  @Override
+    public void onRestart(){
+        Log.v("position","onRstart");
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+    }
+*/
     @Override
     public void onBackPressed() {
+        finish();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+
+
         }
+
     }
-    @Override
-    public void onRestart(){
-        super.onRestart();
-        finish();
-        startActivity(getIntent());
-    }
+
     /*--------------------------------------------------------------------------------------------------------------------------------------*/
 
     @Override

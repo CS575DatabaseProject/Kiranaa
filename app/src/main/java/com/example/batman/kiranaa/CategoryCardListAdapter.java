@@ -35,7 +35,6 @@ import java.util.ArrayList;
  */
 
 public class CategoryCardListAdapter extends BaseAdapter {
-    Intent intent;
     Context context;
     ArrayList<String> category = new ArrayList<String>();
     private static LayoutInflater inflater=null;
