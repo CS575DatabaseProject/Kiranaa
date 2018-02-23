@@ -1,5 +1,6 @@
 package com.example.batman.kiranaa;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -203,8 +204,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_category) {
+
+        } else if (id == R.id.nav_cart) {
+            Fragment cart = new Cart();
+            // Creting the bundle to send the clicked category to the nect fragment
+            //This will set the bundle as an argument to the object
+            // Transaction from current activity to next activity
+            android.app.FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_main, cart).commit();
 
         } else if (id == R.id.nav_payment) {
 
@@ -220,7 +227,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        NavUtils.navigateUpFromSameTask(this);
+        Fragment cart = new Cart();
+        // Creting the bundle to send the clicked category to the nect fragment
+        //This will set the bundle as an argument to the object
+        // Transaction from current activity to next activity
+        android.app.FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_main, cart).commit();
         return true;
     }
 }

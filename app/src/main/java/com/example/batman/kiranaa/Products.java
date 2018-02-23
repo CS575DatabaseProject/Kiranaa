@@ -101,8 +101,9 @@ public class Products extends Fragment {
         cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v("hash value is",""+var.carthash);
                 Toast.makeText(context.getActivity(), "Added to cart", Toast.LENGTH_SHORT).show();
+                ProductsCardListAdapter productsCardListAdapter = new ProductsCardListAdapter();
+                productsCardListAdapter.addToCart();
 
             }
         });

@@ -25,6 +25,9 @@ public class ProductsCardListAdapter extends BaseAdapter {
     private HashMap<String, Integer> productCount;
     Singleton var = Singleton.getInstance();
 
+    public ProductsCardListAdapter(){
+        //Empty constructor
+    }
     /*--------------------------------------Setting the constructor --------------------------*/
     public ProductsCardListAdapter(Products products, ArrayList<String> productList,ArrayList<String> productListValue, HashMap<String, Integer> productCart) {
         context = products;
@@ -108,10 +111,17 @@ public class ProductsCardListAdapter extends BaseAdapter {
             }
         });
 
-        var.carthash = productCount;
+
+
         return productView;
     }
 
+    void addToCart(){
+        Log.v("added to cart","tgtgrttgg"+productCount);
+
+        var.carthash = productCount;
+        Log.v("nothing--------------------",""+var.carthash);
+    }
 
 
 
