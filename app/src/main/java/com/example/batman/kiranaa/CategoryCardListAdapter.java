@@ -6,8 +6,10 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.constraint.solver.widgets.Snapshot;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,7 @@ public class CategoryCardListAdapter extends BaseAdapter {
     ArrayList<String> category = new ArrayList<String>();
     private static LayoutInflater inflater=null;
     ArrayList<String> urlToImg = new ArrayList<String>();
+    private Bundle arguments = new Bundle();
 
     public CategoryCardListAdapter (MainActivity mainActivity, ArrayList<String> categoryList, ArrayList<String> url){
         context = mainActivity;
@@ -69,7 +72,6 @@ public class CategoryCardListAdapter extends BaseAdapter {
         final int position = i;
         Holder holder=new Holder();
         View categoryView;
-
         //Inflating the view
         categoryView = inflater.inflate(R.layout.category_card_list, null);
         //initialising the variable of class Holder
@@ -84,9 +86,15 @@ public class CategoryCardListAdapter extends BaseAdapter {
         categoryView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment products = new Products();
+                // Object foe the next fragment
+                Fragment productName = new Products();
+                // Creting the bundle to send the clicked category to the nect fragment
+                arguments.putString( "CurrentCategoryName" , category.get(position));
+                //This will set the bundle as an argument to the object
+                productName.setArguments(arguments);
+                // Transaction from current activity to next activity
                 android.app.FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_main, products).commit();
+                fragmentManager.beginTransaction().replace(R.id.content_main, productName).commit();
             }
         });
         return categoryView;

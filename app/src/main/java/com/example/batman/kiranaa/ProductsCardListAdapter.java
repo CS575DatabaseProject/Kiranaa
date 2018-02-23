@@ -19,16 +19,18 @@ public class ProductsCardListAdapter extends BaseAdapter {
     /*-----------------Setting the variable-----------------------*/
     private Products context;
     private ArrayList<String> productListArray = new ArrayList<String>();
+    private ArrayList<String> productListArrayValue = new ArrayList<>();
     private static LayoutInflater inflater = null;
     private int count = 0;
     private HashMap<String, Integer> productCount;
 
     /*--------------------------------------Setting the constructor --------------------------*/
-    public ProductsCardListAdapter(Products products, ArrayList<String> productList, HashMap<String, Integer> productCart) {
+    public ProductsCardListAdapter(Products products, ArrayList<String> productList,ArrayList<String> productListValue, HashMap<String, Integer> productCart) {
         context = products;
         productListArray = productList;
         inflater = (LayoutInflater) context.getActivity().getSystemService(context.getActivity().LAYOUT_INFLATER_SERVICE);
         productCount = productCart;
+        productListArrayValue = productListValue;
 
     }
 
@@ -55,6 +57,7 @@ public class ProductsCardListAdapter extends BaseAdapter {
         private TextView textViewNumber;
         private Button buttonAdd;
         private Button buttonRemove;
+        private TextView productValue;
 
     }
 
@@ -72,11 +75,14 @@ public class ProductsCardListAdapter extends BaseAdapter {
         productHolder.buttonAdd = (Button) productView.findViewById(R.id.buttonPlus);
         productHolder.buttonRemove = (Button) productView.findViewById(R.id.buttonMinus);
         productHolder.textViewNumber = (TextView) productView.findViewById(R.id.productCount);
+        productHolder.productValue = (TextView)  productView.findViewById(R.id.product_value);
 
         //Setting the context
         productHolder.textViewProductName.setText(productListArray.get(i));
+        productHolder.productValue.setText(productListArrayValue.get(i));
         productHolder.textViewNumber.setText("0");
         Log.v("hashmap",""+productCount.keySet());
+
 
         productHolder.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override

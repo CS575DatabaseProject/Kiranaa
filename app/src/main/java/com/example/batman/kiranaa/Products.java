@@ -37,38 +37,38 @@ public class Products extends Fragment {
     private ListView productsListview ;
     private DatabaseReference databaseReference;
     private Products context = this;
-    ArrayList<String> productList = new ArrayList<String>();
-    HashMap<String,Integer> productCart = new HashMap<>();
-//    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-//            this,
-//            android.R.layout.simple_list_item_1,
-//            productList );
-    public Products() {
-        // Required empty public constructor
-    }
+    public ArrayList<String> productListKey = new ArrayList<String>();
+    public ArrayList<String> productListValue = new ArrayList<String>();
+    public HashMap<String,Integer> productCart = new HashMap<>();
+    private Bundle bundle;
+    private String currentCategory;
 
-
+    /*------------------------------------------------Overridden methods-----------------------------------------------------------*/
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Log.v("products","I am the produts class");
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+        // getting the bundle from the previous fragment with the clicked category value
+        bundle = getArguments();
+        currentCategory = bundle.getString("CurrentCategoryName");
+        // inflating the view
         final View rootView = inflater.inflate(R.layout.fragment_products, container, false);
+        // Initialising the list view for th products of the respective category
         productsListview = (ListView) rootView.findViewById(R.id.productsList) ;
+        // creating database reference to get the data from firebase
         databaseReference = FirebaseDatabase.getInstance()
-                .getReferenceFromUrl("https://kiranaa-575.firebaseio.com/Products/Cleaners");
+                .getReferenceFromUrl("https://kiranaa-575.firebaseio.com/Products/"+currentCategory);
+
+        // Getting the data here
         databaseReference.addChildEventListener(new ChildEventListener() {
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-
                 String key = dataSnapshot.getKey();
-                productList.add(key);
+                String value =  dataSnapshot.getValue().toString();
+                productListKey.add(key);
+                productListValue.add(value);
                 Log.v("hi",""+key);
                 productCart.put(key,0);
                 populate();
-
             }
 
             @Override
@@ -98,8 +98,16 @@ public class Products extends Fragment {
     }
     public void populate(){
         Log.v("populate","at the funcion");
-        ProductsCardListAdapter productsCardListAdapter = new ProductsCardListAdapter(context,productList,productCart);
+        ProductsCardListAdapter productsCardListAdapter = new ProductsCardListAdapter(context,productListKey,productListValue,productCart);
         productsListview.setAdapter(productsCardListAdapter);
     }
 
 }
+
+
+
+
+/*------------------------------------------------------------If required-------------------------------------------------------*/
+/*public Products() {
+        // Required empty public constructor
+    }*/
