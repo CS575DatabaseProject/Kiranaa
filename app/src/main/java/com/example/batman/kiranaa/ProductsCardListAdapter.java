@@ -23,6 +23,7 @@ public class ProductsCardListAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
     private int count = 0;
     private HashMap<String, Integer> productCount;
+    Singleton var = Singleton.getInstance();
 
     /*--------------------------------------Setting the constructor --------------------------*/
     public ProductsCardListAdapter(Products products, ArrayList<String> productList,ArrayList<String> productListValue, HashMap<String, Integer> productCart) {
@@ -59,6 +60,7 @@ public class ProductsCardListAdapter extends BaseAdapter {
         private Button buttonRemove;
         private TextView productValue;
 
+
     }
 
     /*------------------------------Inflating the view here ----------------------------*/
@@ -79,7 +81,7 @@ public class ProductsCardListAdapter extends BaseAdapter {
 
         //Setting the context
         productHolder.textViewProductName.setText(productListArray.get(i));
-        productHolder.productValue.setText(productListArrayValue.get(i));
+        productHolder.productValue.setText(productListArrayValue.get(i)+ " $");
         productHolder.textViewNumber.setText("0");
         Log.v("hashmap",""+productCount.keySet());
 
@@ -106,7 +108,13 @@ public class ProductsCardListAdapter extends BaseAdapter {
             }
         });
 
-
+        var.carthash = productCount;
         return productView;
     }
+
+
+
+
+
+
 }

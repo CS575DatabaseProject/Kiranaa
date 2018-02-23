@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ import java.util.concurrent.TimeUnit;
 public class Products extends Fragment {
 
     private ListView productsListview ;
+    private Button cartButton;
     private DatabaseReference databaseReference;
     private Products context = this;
     public ArrayList<String> productListKey = new ArrayList<String>();
@@ -42,10 +44,11 @@ public class Products extends Fragment {
     public HashMap<String,Integer> productCart = new HashMap<>();
     private Bundle bundle;
     private String currentCategory;
+    Singleton var = Singleton.getInstance();
 
     /*------------------------------------------------Overridden methods-----------------------------------------------------------*/
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         // getting the bundle from the previous fragment with the clicked category value
         bundle = getArguments();
         currentCategory = bundle.getString("CurrentCategoryName");
@@ -53,6 +56,7 @@ public class Products extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_products, container, false);
         // Initialising the list view for th products of the respective category
         productsListview = (ListView) rootView.findViewById(R.id.productsList) ;
+        cartButton = (Button) rootView.findViewById(R.id.buttonAddToCart) ;
         // creating database reference to get the data from firebase
         databaseReference = FirebaseDatabase.getInstance()
                 .getReferenceFromUrl("https://kiranaa-575.firebaseio.com/Products/"+currentCategory);
@@ -91,6 +95,16 @@ public class Products extends Fragment {
 
             }
 
+        });
+
+
+        cartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.v("hash value is",""+var.carthash);
+                Toast.makeText(context.getActivity(), "Added to cart", Toast.LENGTH_SHORT).show();
+
+            }
         });
 
         return rootView;

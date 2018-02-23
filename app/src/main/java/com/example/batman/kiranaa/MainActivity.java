@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.util.TimeUtils;
 import android.view.View;
@@ -211,6 +212,15 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        NavUtils.navigateUpFromSameTask(this);
         return true;
     }
 }

@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:background="@drawable/card_background">
+            >
             <ImageView
                 android:id="@+id/category_image"
                 android:layout_width="100dp"

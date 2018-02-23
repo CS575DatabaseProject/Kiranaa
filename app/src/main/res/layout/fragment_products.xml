@@ -6,13 +6,27 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/main_background">
-
-        <ListView
+        android:background="@color/white"
+        >
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/productsList" />
+            android:layout_height="450dp"
+            android:id="@+id/listScrollView" >
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/productsList" />
+        </ScrollView>
 
+
+        <Button
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+            android:layout_below="@+id/listScrollView"
+            android:id="@+id/buttonAddToCart"
+            android:text="Add To Cart"
+            android:layout_centerInParent="true"
+            />
 
 
     </RelativeLayout>
