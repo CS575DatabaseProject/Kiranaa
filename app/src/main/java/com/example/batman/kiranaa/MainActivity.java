@@ -52,13 +52,14 @@ public class MainActivity extends AppCompatActivity
         private ListView categoryListView;
         private FirebaseListAdapter<String> firebaseListAdapter;
         private FirebaseListOptions<String> options ;
-        private static ArrayList<String> categoryList = new ArrayList<String>();
+        private static ArrayList<String> categoryList ;//;= new ArrayList<String>();
         private CategoryCardListAdapter categoryCardListAdapter;
         private DatabaseReference databaseReference;
         private StorageReference storageReference;
         private StorageReference filepath;
-        private ArrayList<String> url = new ArrayList<String>();
-        private ArrayList<String> categoryKey = new ArrayList<String>();
+        private ArrayList<String> url ;//= new ArrayList<String>();
+        private ArrayList<String> categoryKey;// = new ArrayList<String>();
+        int categoryCount=0;
         int temp;
 
 /*-------------------------------------------OnCreate Method----------------------------------------------------------------------------------------------*/
@@ -66,6 +67,9 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
+        categoryList=new ArrayList<String>();
+        url=new ArrayList<String>();
+        categoryKey=new ArrayList<String>();
         //database for categories initialized
         databaseReference = FirebaseDatabase.getInstance()
                 .getReferenceFromUrl("https://kiranaa-575.firebaseio.com/Categories");
@@ -81,21 +85,21 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
+                categoryCount++;
                 temp = 0;
                 String value = dataSnapshot.getValue(String.class);
                 categoryList.add(value);
                 String key = dataSnapshot.getKey();
                 categoryKey.add(key);
-                filepath = storageReference.child("Categories").child(value+".jpg");
-                Log.v("filepath is",""+filepath);
+                filepath = storageReference.child("Categories").child(value + ".jpg");
+                Log.v("filepath is", "" + filepath);
                 filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Log.v("url is",""+uri);
+                        Log.v("url is", "" + uri);
                         url.add(uri.toString());
                         temp++;
-                        Log.v("temp is",""+temp);
+                        Log.v("temp is", "" + temp);
                         init();
                     }
 
@@ -103,7 +107,7 @@ public class MainActivity extends AppCompatActivity
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(Exception exception) {
-                        Log.v("error is",""+exception.getMessage());
+                        Log.v("error is", "" + exception.getMessage());
                     }
                 });
 
