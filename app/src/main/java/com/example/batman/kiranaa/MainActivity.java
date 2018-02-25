@@ -208,7 +208,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-
+            Intent intent = new Intent(this,MainActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_cart) {
             Fragment cart = new Cart();
             // Creting the bundle to send the clicked category to the nect fragment

@@ -92,9 +92,7 @@ public class ProductsCardListAdapter extends BaseAdapter {
         productHolder.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /*count++;
-               productHolder.textViewNumber.setText(Integer.toString(count));*/
-               //Toast.makeText(context.getActivity(), "" + productCount.get(productListArray.get(position)), Toast.LENGTH_SHORT).show();
+
                productCount.put(productListArray.get(position), productCount.get(productListArray.get(position)) + 1);
                productHolder.textViewNumber.setText(productCount.get(productListArray.get(position)).toString());
             }
@@ -112,16 +110,11 @@ public class ProductsCardListAdapter extends BaseAdapter {
         });
 
 
-
+        var.carthash = productCount;
         return productView;
     }
 
-    void addToCart(){
-        Log.v("added to cart","tgtgrttgg"+productCount);
 
-        var.carthash = productCount;
-        Log.v("nothing--------------------",""+var.carthash);
-    }
 
 
 
