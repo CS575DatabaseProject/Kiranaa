@@ -219,6 +219,9 @@ public class MainActivity extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.content_main, cart).commit();
 
         } else if (id == R.id.nav_payment) {
+            Fragment checkout = new Checkout();
+            FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_main, checkout).commit();
 
         }
 

@@ -2,7 +2,8 @@
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context="com.example.batman.kiranaa.Checkout">
+tools:context="com.example.batman.kiranaa.Checkout"
+    android:background="@color/white">
 
 <!-- TODO: Update blank fragment layout -->
 <RelativeLayout
@@ -22,7 +23,7 @@ tools:context="com.example.batman.kiranaa.Checkout">
     <EditText
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="Name"
+        android:hint="@string/Name"
         android:inputType="text"
         android:id="@+id/userName"
         android:layout_below="@+id/headTextPersonalInfo"
@@ -35,7 +36,7 @@ tools:context="com.example.batman.kiranaa.Checkout">
         android:layout_height="60dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Address"
+        android:hint="@string/Address"
         android:layout_marginBottom="10dp"
         android:layout_below="@+id/userName"/>
 
@@ -53,7 +54,7 @@ tools:context="com.example.batman.kiranaa.Checkout">
             android:layout_marginBottom="10dp"
             android:ems="10"
             android:inputType="text"
-            android:text="Country"/>
+            android:hint="@string/Country"/>
 
         <EditText
             android:id="@+id/userZipCode"
@@ -63,7 +64,7 @@ tools:context="com.example.batman.kiranaa.Checkout">
             android:layout_marginStart="10dp"
             android:ems="10"
             android:inputType="number"
-            android:text="ZipCode"/>
+            android:hint="@string/Zipcode"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -85,7 +86,7 @@ tools:context="com.example.batman.kiranaa.Checkout">
             android:layout_height="60dp"
             android:ems="10"
             android:inputType="number"
-            android:text="Credit Card Number" />
+            android:hint="@string/Credit_Card_Number" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -100,7 +101,7 @@ tools:context="com.example.batman.kiranaa.Checkout">
                 android:layout_marginBottom="10dp"
                 android:ems="10"
                 android:inputType="number"
-                android:text="CVV"/>
+                android:hint="@string/Cvv"/>
 
             <EditText
                 android:id="@+id/userCardExpDate"
@@ -110,7 +111,7 @@ tools:context="com.example.batman.kiranaa.Checkout">
                 android:layout_marginStart="10dp"
                 android:ems="10"
                 android:inputType="date"
-                android:text="MM/YYYY"/>
+                android:hint="@string/date"/>
         </RelativeLayout>
 
         <android.support.v7.widget.AppCompatCheckBox

@@ -6,7 +6,13 @@
 
     <string name="action_settings">Settings</string>
     <string name="Cart">Cart</string>
-
+    <string name="Name">Name</string>
+    <string name="Address">Address</string>
+    <string name="Country">Country</string>
+    <string name="Zipcode">Zipcode</string>
+    <string name="Credit_Card_Number">Credit Card Number</string>
+    <string name="Cvv">CVV Number</string>
+    <string name="date">MM/YYYY</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
