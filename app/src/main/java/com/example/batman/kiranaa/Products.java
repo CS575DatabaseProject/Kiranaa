@@ -102,8 +102,7 @@ public class Products extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context.getActivity(), "Added to cart", Toast.LENGTH_SHORT).show();
-                ProductsCardListAdapter productsCardListAdapter = new ProductsCardListAdapter();
-                productsCardListAdapter.addToCart();
+                var.variable = true;
 
             }
         });
@@ -115,6 +114,7 @@ public class Products extends Fragment {
         Log.v("populate","at the funcion");
         ProductsCardListAdapter productsCardListAdapter = new ProductsCardListAdapter(context,productListKey,productListValue,productCart);
         productsListview.setAdapter(productsCardListAdapter);
+
     }
 
 }

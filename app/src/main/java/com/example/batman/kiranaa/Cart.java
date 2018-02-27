@@ -8,14 +8,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 public class Cart extends Fragment {
     private ListView listView;
     private Button button;
     Singleton var = Singleton.getInstance();
+    String [] key;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,13 +32,23 @@ public class Cart extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        final View cartView = inflater.inflate(R.layout.fragment_cart, container, false);
-        listView = (ListView) cartView.findViewById(R.id.cart_listView);
-        button = (Button) cartView.findViewById(R.id.chekout_payment);
+        if(var.variable == false){
+            Toast.makeText(getActivity(), "Cart is empty", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        else {
+            // Inflate the layout for this fragment
+            final View cartView = inflater.inflate(R.layout.fragment_cart, container, false);
+            listView = (ListView) cartView.findViewById(R.id.cart_listView);
+            button = (Button) cartView.findViewById(R.id.chekout_payment);
+            key = var.carthash.keySet().toArray(new String[0]);
+            ArrayAdapter<String> itemsAdapter =
+                    new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, key);
+            listView.setAdapter(itemsAdapter);
 
+            return cartView;
+        }
 
-        return cartView;
     }
 
 
