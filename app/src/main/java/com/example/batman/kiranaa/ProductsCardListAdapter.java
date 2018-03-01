@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -20,6 +22,7 @@ public class ProductsCardListAdapter extends BaseAdapter {
     private Products context;
     private ArrayList<String> productListArray = new ArrayList<String>();
     private ArrayList<String> productListArrayValue = new ArrayList<>();
+    private ArrayList<String> urlToImg = new ArrayList<String>();
     private static LayoutInflater inflater = null;
     private int count = 0;
     private HashMap<String, Integer> productCount;
@@ -29,12 +32,13 @@ public class ProductsCardListAdapter extends BaseAdapter {
         //Empty constructor
     }
     /*--------------------------------------Setting the constructor --------------------------*/
-    public ProductsCardListAdapter(Products products, ArrayList<String> productList,ArrayList<String> productListValue, HashMap<String, Integer> productCart) {
+    public ProductsCardListAdapter(Products products, ArrayList<String> productList,ArrayList<String> productListValue, HashMap<String, Integer> productCart,ArrayList<String> url) {
         context = products;
         productListArray = productList;
         inflater = (LayoutInflater) context.getActivity().getSystemService(context.getActivity().LAYOUT_INFLATER_SERVICE);
         productCount = productCart;
         productListArrayValue = productListValue;
+        urlToImg = url;
 
     }
 
@@ -81,7 +85,8 @@ public class ProductsCardListAdapter extends BaseAdapter {
         productHolder.buttonRemove = (Button) productView.findViewById(R.id.buttonMinus);
         productHolder.textViewNumber = (TextView) productView.findViewById(R.id.productCount);
         productHolder.productValue = (TextView)  productView.findViewById(R.id.product_value);
-
+        productHolder.imageView = (ImageView) productView.findViewById(R.id.category_image);
+        Glide.with(context).load(urlToImg.get(i)).into(productHolder.imageView);
         //Setting the context
         productHolder.textViewProductName.setText(productListArray.get(i));
         productHolder.productValue.setText(productListArrayValue.get(i)+ " $");

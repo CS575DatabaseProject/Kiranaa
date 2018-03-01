@@ -24,6 +24,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +41,9 @@ public class Products extends Fragment {
     private Button cartButton;
     private DatabaseReference databaseReference;
     private Products context = this;
+    private StorageReference storageReference;
+    private StorageReference filepath;
+    private ArrayList<String> url ;
     public ArrayList<String> productListKey = new ArrayList<String>();
     public ArrayList<String> productListValue = new ArrayList<String>();
     public HashMap<String,Integer> productCart = new HashMap<>();
@@ -49,6 +54,7 @@ public class Products extends Fragment {
     /*------------------------------------------------Overridden methods-----------------------------------------------------------*/
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+        url=new ArrayList<String>();
         // getting the bundle from the previous fragment with the clicked category value
         bundle = getArguments();
         currentCategory = bundle.getString("CurrentCategoryName");
@@ -60,7 +66,7 @@ public class Products extends Fragment {
         // creating database reference to get the data from firebase
         databaseReference = FirebaseDatabase.getInstance()
                 .getReferenceFromUrl("https://kiranaa-575.firebaseio.com/Products/"+currentCategory);
-
+        storageReference = FirebaseStorage.getInstance().getReference();
         // Getting the data here
         databaseReference.addChildEventListener(new ChildEventListener() {
 
@@ -72,7 +78,36 @@ public class Products extends Fragment {
                 productListValue.add(value);
                 Log.v("hi",""+key);
                 productCart.put(key,0);
-                populate();
+                filepath = storageReference.child("Products").child(currentCategory).child(key + ".jpg");
+                Log.v("filepath is", "" + filepath);
+                filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Log.v("url is", "" + uri);
+                        url.add(uri.toString());
+
+                        populate();
+
+                    }
+
+
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(Exception exception) {
+                        Log.v("error is", "" + exception.getMessage());
+                    }
+                });
+
+                Log.v("value is", "" + value);
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+
+
             }
 
             @Override
@@ -112,7 +147,7 @@ public class Products extends Fragment {
     }
     public void populate(){
         Log.v("populate","at the funcion");
-        ProductsCardListAdapter productsCardListAdapter = new ProductsCardListAdapter(context,productListKey,productListValue,productCart);
+        ProductsCardListAdapter productsCardListAdapter = new ProductsCardListAdapter(context,productListKey,productListValue,productCart,url);
         productsListview.setAdapter(productsCardListAdapter);
 
     }
