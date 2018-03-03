@@ -82,7 +82,7 @@ public class ProductsCardListAdapter extends BaseAdapter {
         {return productView;}
         // initialising all the variables of the class product holder
         final ProductHolder productHolder = new ProductHolder();
-        productHolder.textViewProductName = (TextView) productView.findViewById(R.id.product_categuory_text);
+        productHolder.textViewProductName = (TextView) productView.findViewById(R.id.product_category_text);
         productHolder.buttonAdd = (Button) productView.findViewById(R.id.buttonPlus);
         productHolder.buttonRemove = (Button) productView.findViewById(R.id.buttonMinus);
         productHolder.textViewNumber = (TextView) productView.findViewById(R.id.productCount);
@@ -100,24 +100,29 @@ public class ProductsCardListAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
 
-               productCount.put(productListArray.get(position), productCount.get(productListArray.get(position)) + 1);
-               productHolder.textViewNumber.setText(productCount.get(productListArray.get(position)).toString());
+                Toast.makeText(context.getActivity(), ""+Integer.parseInt(productListArrayValue.get(i)), Toast.LENGTH_SHORT).show();
+                var.carthash.put(productListArray.get(i), productCount.get(productListArray.get(i)) + 1);
+                var.cartPrice.put(productListArray.get(i),Integer.parseInt(productListArrayValue.get(i)));
+                productCount.put(productListArray.get(i), var.carthash.get(productListArray.get(i)));
+                productHolder.textViewNumber.setText(productCount.get(productListArray.get(i)).toString());
             }
         });
         productHolder.buttonRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (productCount.get(productListArray.get(position))== 0) {
+                if (productCount.get(productListArray.get(i))== 0) {
                     Toast.makeText(context.getActivity(), "value is already null", Toast.LENGTH_SHORT).show();
                 } else {
-                    productCount.put(productListArray.get(position), productCount.get(productListArray.get(position)) - 1);
-                    productHolder.textViewNumber.setText(productCount.get(productListArray.get(position)).toString());
+                    var.cartPrice.put(productListArray.get(i),Integer.parseInt(productListArrayValue.get(i)));
+                    var.carthash.put(productListArray.get(i), productCount.get(productListArray.get(i)) - 1);
+                    productCount.put(productListArray.get(i), var.carthash.get(productListArray.get(i)));
+                    productHolder.textViewNumber.setText(productCount.get(productListArray.get(i)).toString());
                 }
             }
         });
 
 
-        var.carthash = productCount;
+
         return productView;
     }
 

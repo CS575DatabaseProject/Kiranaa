@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 
 public class Cart extends Fragment {
+    Cart context = this;
     private ListView listView;
     private Button button;
     Singleton var = Singleton.getInstance();
@@ -42,9 +43,9 @@ public class Cart extends Fragment {
             listView = (ListView) cartView.findViewById(R.id.cart_listView);
             button = (Button) cartView.findViewById(R.id.chekout_payment);
             key = var.carthash.keySet().toArray(new String[0]);
-            ArrayAdapter<String> itemsAdapter =
-                    new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, key);
-            listView.setAdapter(itemsAdapter);
+            CartCardListAdapter cartCardListAdapter = new CartCardListAdapter(context,key);
+
+            listView.setAdapter(cartCardListAdapter);
 
             return cartView;
         }
