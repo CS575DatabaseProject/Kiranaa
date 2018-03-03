@@ -1,9 +1,11 @@
 package com.example.batman.kiranaa;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Checkout extends Fragment {
 
@@ -23,12 +30,15 @@ public class Checkout extends Fragment {
     private EditText userCvvNumber;
     private EditText userCardExpDate;
     private Button checkOutButton;
+    private DatabaseReference databaseReference;
+    private Map<String,SaveUserInfo> userInfo = new HashMap<>();
     Singleton var = Singleton.getInstance();
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         if (var.variable == false) {
             Toast.makeText(getActivity(), "No item selected", Toast.LENGTH_SHORT).show();
             return null;
@@ -62,6 +72,14 @@ public class Checkout extends Fragment {
                     Toast.makeText(getActivity(), "Values can not be left empty", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), "Thank You for choosing Kiranaa", Toast.LENGTH_SHORT).show();
+                    SaveUserInfo saveUserInfo = new SaveUserInfo(address,country,zipcode,cardnumber,cardexpdate,cvvnumber);
+                    databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://kiranaa-575.firebaseio.com/UserInfo/"+name);
+                    userInfo.put(name, saveUserInfo );
+                    databaseReference.setValue(saveUserInfo);
+                    Fragment thankyou = new ThankYouFragment();
+                    FragmentManager fragmentManager = getActivity().getFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_checkout, thankyou).commit();
+
 
                 }
 

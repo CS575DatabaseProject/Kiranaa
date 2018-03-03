@@ -1,5 +1,7 @@
 package com.example.batman.kiranaa;
 
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -46,7 +48,15 @@ public class Cart extends Fragment {
             CartCardListAdapter cartCardListAdapter = new CartCardListAdapter(context,key);
 
             listView.setAdapter(cartCardListAdapter);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Fragment checkout = new Checkout();
+                    FragmentManager fragmentManager = getActivity().getFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.content_main, checkout).commit();
 
+                }
+            });
             return cartView;
         }
 
