@@ -31,6 +31,8 @@ import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseListOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -61,6 +63,9 @@ public class MainActivity extends AppCompatActivity
         private ArrayList<String> categoryKey;// = new ArrayList<String>();
         int categoryCount=0;
         int temp;
+    private Task<Void> allTask;
+
+
 
 /*-------------------------------------------OnCreate Method----------------------------------------------------------------------------------------------*/
     @Override
@@ -81,10 +86,11 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         categoryListView = (ListView) findViewById(R.id.category_listview);
 
-        databaseReference.addChildEventListener(new ChildEventListener() {
+       databaseReference.addChildEventListener(new ChildEventListener() {
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
                 categoryCount++;
                 temp = 0;
                 String value = dataSnapshot.getValue(String.class);
@@ -93,14 +99,33 @@ public class MainActivity extends AppCompatActivity
                 categoryKey.add(key);
                 filepath = storageReference.child("Categories").child(value + ".jpg");
                 Log.v("filepath is", "" + filepath);
-                filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                    @Override
+//                    public void onSuccess(Uri uri) {
+//                        Log.v("url is", "" + uri);
+//                        url.add(uri.toString());
+//                        temp++;
+//                        Log.v("temp is", "" + temp);
+//                        //init();
+//                    }
+//
+//
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(Exception exception) {
+//                        Log.v("error is", "" + exception.getMessage());
+//                    }
+//                });
+
+                Log.v("value is", "" + value);
+                allTask = Tasks.whenAll( filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Log.v("url is", "" + uri);
+                        //Log.v("url is", "" + uri);
                         url.add(uri.toString());
                         temp++;
-                        Log.v("temp is", "" + temp);
-                        init();
+                        //Log.v("temp is", "" + temp);
+                        //init();
                     }
 
 
@@ -109,14 +134,39 @@ public class MainActivity extends AppCompatActivity
                     public void onFailure(Exception exception) {
                         Log.v("error is", "" + exception.getMessage());
                     }
+                }));
+                allTask.addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.v("url is", "" + url);
+                        Log.v("category is", "" + categoryList);
+                        Log.v("temp is", "" + temp);
+                      init();
+                    }
+                });
+                allTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(Exception e) {
+                        Log.v("task failed", "failed task" );
+                    }
                 });
 
-                Log.v("value is", "" + value);
-                try {
-                    TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+
+                //Task<Void> urlTask= Tasks.await(allTask,1,TimeUnit.SECONDS);
+//                Log.v("url.size)", "URL SIZE"+url.size() );
+//                Log.v("categoryList.size()", "URL SIZE"+categoryList.size() );
+//                try {
+//                    Log.v("url.size()", "WAITING........"+url.size() );
+//                    TimeUnit.SECONDS.sleep(3);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+                Log.v("url.size() AGAIN", "URL SIZE AGAIN"+url.size() );
+                Log.v("categoryList.size() AGAIN", "categoryList SIZE AGAIN"+categoryList.size() );
+//                while (url.size()!=categoryList.size())
+//                {
+//                    continue;
+//                }
 
             }
 
@@ -144,6 +194,7 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

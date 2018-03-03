@@ -29,6 +29,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 
 import java.util.ArrayList;
 
@@ -68,18 +70,27 @@ public class CategoryCardListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
+        Log.v("i is", "" + i);
+        Log.v("urlToImg size is", "" + urlToImg.size());
+
         //Declaring all the variables
         final int position = i;
         Holder holder=new Holder();
         View categoryView;
         //Inflating the view
         categoryView = inflater.inflate(R.layout.category_card_list, null);
+        if (urlToImg.size()<i+1)
+        {return categoryView;}
         //initialising the variable of class Holder
         holder.textView = (TextView) categoryView.findViewById(R.id.category_text);
         holder.imageView = (ImageView) categoryView.findViewById(R.id.category_image);
 
         //Setting the text and the image of the card with the values received from mainActivity
+
         holder.textView.setText(category.get(i));
+        Log.v("i is", "" + i);
+        Log.v("urlToImg is", "" + urlToImg.get(i));
+
         Glide.with(context).load(urlToImg.get(i)).into(holder.imageView);
 
         //On click should go to respective category products

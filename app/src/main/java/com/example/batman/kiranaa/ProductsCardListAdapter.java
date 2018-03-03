@@ -78,9 +78,11 @@ public class ProductsCardListAdapter extends BaseAdapter {
         //Creating and inflating the view
         View productView;
         productView = inflater.inflate(R.layout.product_card_list, null);
+        if (urlToImg.size()<i+1)
+        {return productView;}
         // initialising all the variables of the class product holder
         final ProductHolder productHolder = new ProductHolder();
-        productHolder.textViewProductName = (TextView) productView.findViewById(R.id.product_category_text);
+        productHolder.textViewProductName = (TextView) productView.findViewById(R.id.product_categuory_text);
         productHolder.buttonAdd = (Button) productView.findViewById(R.id.buttonPlus);
         productHolder.buttonRemove = (Button) productView.findViewById(R.id.buttonMinus);
         productHolder.textViewNumber = (TextView) productView.findViewById(R.id.productCount);
