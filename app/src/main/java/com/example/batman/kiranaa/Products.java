@@ -43,7 +43,7 @@ public class Products extends Fragment {
     private Products context = this;
     private StorageReference storageReference;
     private StorageReference filepath;
-    private ArrayList<String> url ;
+
     public ArrayList<String> productListKey = new ArrayList<String>();
     public ArrayList<String> productListValue = new ArrayList<String>();
     public HashMap<String,Integer> productCart = new HashMap<>();
@@ -54,7 +54,7 @@ public class Products extends Fragment {
     /*------------------------------------------------Overridden methods-----------------------------------------------------------*/
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
-        url=new ArrayList<String>();
+
         // getting the bundle from the previous fragment with the clicked category value
         bundle = getArguments();
         currentCategory = bundle.getString("CurrentCategoryName");
@@ -72,10 +72,11 @@ public class Products extends Fragment {
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String key = dataSnapshot.getKey();
-                String value =  dataSnapshot.getValue().toString();
+                final String key = dataSnapshot.getKey();
+                final String value =  dataSnapshot.getValue().toString();
                 productListKey.add(key);
                 productListValue.add(value);
+                var.ProductMap.put(value,"");
                 Log.v("hi",""+key);
                 productCart.put(key,0);
                 filepath = storageReference.child("Products").child(currentCategory).child(key + ".jpg");
@@ -84,7 +85,8 @@ public class Products extends Fragment {
                     @Override
                     public void onSuccess(Uri uri) {
                         Log.v("url is", "" + uri);
-                        url.add(uri.toString());
+                        //url.add(uri.toString());
+                        var.ProductMap.put(key,uri.toString());
 
                         populate();
 
@@ -99,11 +101,7 @@ public class Products extends Fragment {
                 });
 
                 Log.v("value is", "" + value);
-//                try {
-//                    TimeUnit.SECONDS.sleep(1);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
+
 
 
 
@@ -147,7 +145,7 @@ public class Products extends Fragment {
     }
     public void populate(){
         Log.v("populate","at the funcion");
-        ProductsCardListAdapter productsCardListAdapter = new ProductsCardListAdapter(context,productListKey,productListValue,productCart,url);
+        ProductsCardListAdapter productsCardListAdapter = new ProductsCardListAdapter(context,productListKey,productListValue,productCart);
         productsListview.setAdapter(productsCardListAdapter);
 
     }

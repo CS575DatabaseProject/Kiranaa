@@ -22,7 +22,7 @@ public class ProductsCardListAdapter extends BaseAdapter {
     private Products context;
     private ArrayList<String> productListArray = new ArrayList<String>();
     private ArrayList<String> productListArrayValue = new ArrayList<>();
-    private ArrayList<String> urlToImg = new ArrayList<String>();
+
     private static LayoutInflater inflater = null;
     private int count = 0;
     private HashMap<String, Integer> productCount;
@@ -32,13 +32,13 @@ public class ProductsCardListAdapter extends BaseAdapter {
         //Empty constructor
     }
     /*--------------------------------------Setting the constructor --------------------------*/
-    public ProductsCardListAdapter(Products products, ArrayList<String> productList,ArrayList<String> productListValue, HashMap<String, Integer> productCart,ArrayList<String> url) {
+    public ProductsCardListAdapter(Products products, ArrayList<String> productList,ArrayList<String> productListValue, HashMap<String, Integer> productCart) {
         context = products;
         productListArray = productList;
         inflater = (LayoutInflater) context.getActivity().getSystemService(context.getActivity().LAYOUT_INFLATER_SERVICE);
         productCount = productCart;
         productListArrayValue = productListValue;
-        urlToImg = url;
+
 
     }
 
@@ -74,11 +74,13 @@ public class ProductsCardListAdapter extends BaseAdapter {
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
         final int position = i;
-        //productCount = new HashMap<>();
-        //Creating and inflating the view
+
         View productView;
         productView = inflater.inflate(R.layout.product_card_list, null);
-        if (urlToImg.size()<i+1)
+        String URL=var.ProductMap.get(productListArray.get(i));
+        Log.v("ProductMap",""+var.ProductMap);
+
+        if (URL==null || URL=="")
         {return productView;}
         // initialising all the variables of the class product holder
         final ProductHolder productHolder = new ProductHolder();
@@ -88,7 +90,7 @@ public class ProductsCardListAdapter extends BaseAdapter {
         productHolder.textViewNumber = (TextView) productView.findViewById(R.id.productCount);
         productHolder.productValue = (TextView)  productView.findViewById(R.id.product_value);
         productHolder.imageView = (ImageView) productView.findViewById(R.id.category_image);
-        Glide.with(context).load(urlToImg.get(i)).into(productHolder.imageView);
+        Glide.with(context).load(URL).into(productHolder.imageView);
         //Setting the context
         productHolder.textViewProductName.setText(productListArray.get(i));
         productHolder.productValue.setText(productListArrayValue.get(i)+ " $");

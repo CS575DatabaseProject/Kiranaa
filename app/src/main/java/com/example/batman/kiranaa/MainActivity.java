@@ -59,10 +59,11 @@ public class MainActivity extends AppCompatActivity
         private DatabaseReference databaseReference;
         private StorageReference storageReference;
         private StorageReference filepath;
-        private ArrayList<String> url ;//= new ArrayList<String>();
+
         private ArrayList<String> categoryKey;// = new ArrayList<String>();
         int categoryCount=0;
         int temp;
+    Singleton var = Singleton.getInstance();
     private Task<Void> allTask;
 
 
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         context = this;
         categoryList=new ArrayList<String>();
-        url=new ArrayList<String>();
+
         categoryKey=new ArrayList<String>();
         //database for categories initialized
         databaseReference = FirebaseDatabase.getInstance()
@@ -93,39 +94,24 @@ public class MainActivity extends AppCompatActivity
 
                 categoryCount++;
                 temp = 0;
-                String value = dataSnapshot.getValue(String.class);
+                final String value = dataSnapshot.getValue(String.class);
                 categoryList.add(value);
                 String key = dataSnapshot.getKey();
                 categoryKey.add(key);
+                var.categoryMap.put(value,"");
                 filepath = storageReference.child("Categories").child(value + ".jpg");
                 Log.v("filepath is", "" + filepath);
-//                filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                    @Override
-//                    public void onSuccess(Uri uri) {
-//                        Log.v("url is", "" + uri);
-//                        url.add(uri.toString());
-//                        temp++;
-//                        Log.v("temp is", "" + temp);
-//                        //init();
-//                    }
-//
-//
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(Exception exception) {
-//                        Log.v("error is", "" + exception.getMessage());
-//                    }
-//                });
+
 
                 Log.v("value is", "" + value);
                 allTask = Tasks.whenAll( filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        //Log.v("url is", "" + uri);
-                        url.add(uri.toString());
+                        //url.add(uri.toString());
+                        var.categoryMap.put(value,uri.toString());
                         temp++;
-                        //Log.v("temp is", "" + temp);
-                        //init();
+                        Log.v("Category map", "" + var.categoryMap);
+
                     }
 
 
@@ -138,9 +124,7 @@ public class MainActivity extends AppCompatActivity
                 allTask.addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.v("url is", "" + url);
-                        Log.v("category is", "" + categoryList);
-                        Log.v("temp is", "" + temp);
+
                       init();
                     }
                 });
@@ -152,21 +136,6 @@ public class MainActivity extends AppCompatActivity
                 });
 
 
-                //Task<Void> urlTask= Tasks.await(allTask,1,TimeUnit.SECONDS);
-//                Log.v("url.size)", "URL SIZE"+url.size() );
-//                Log.v("categoryList.size()", "URL SIZE"+categoryList.size() );
-//                try {
-//                    Log.v("url.size()", "WAITING........"+url.size() );
-//                    TimeUnit.SECONDS.sleep(3);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-                Log.v("url.size() AGAIN", "URL SIZE AGAIN"+url.size() );
-                Log.v("categoryList.size() AGAIN", "categoryList SIZE AGAIN"+categoryList.size() );
-//                while (url.size()!=categoryList.size())
-//                {
-//                    continue;
-//                }
 
             }
 
@@ -215,18 +184,11 @@ public class MainActivity extends AppCompatActivity
 
 
     public void init(){
-        categoryCardListAdapter = new CategoryCardListAdapter(MainActivity.this,categoryList,url);
+        categoryCardListAdapter = new CategoryCardListAdapter(MainActivity.this,categoryList);
         categoryListView.setAdapter(categoryCardListAdapter);
     }
 
-  /*  @Override
-    public void onRestart(){
-        Log.v("position","onRstart");
-        super.onRestart();
-        finish();
-        startActivity(getIntent());
-    }
-*/
+
     @Override
     public void onBackPressed() {
         finish();

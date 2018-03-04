@@ -40,14 +40,14 @@ public class CategoryCardListAdapter extends BaseAdapter {
     Context context;
     ArrayList<String> category = new ArrayList<String>();
     private static LayoutInflater inflater=null;
-    ArrayList<String> urlToImg = new ArrayList<String>();
-    private Bundle arguments = new Bundle();
 
-    public CategoryCardListAdapter (MainActivity mainActivity, ArrayList<String> categoryList, ArrayList<String> url){
+    private Bundle arguments = new Bundle();
+    Singleton var = Singleton.getInstance();
+    public CategoryCardListAdapter (MainActivity mainActivity, ArrayList<String> categoryList){
         context = mainActivity;
         category = categoryList;
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        urlToImg = url;
+
     }
     @Override
     public int getCount() {
@@ -71,7 +71,7 @@ public class CategoryCardListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         Log.v("i is", "" + i);
-        Log.v("urlToImg size is", "" + urlToImg.size());
+
 
         //Declaring all the variables
         final int position = i;
@@ -79,7 +79,9 @@ public class CategoryCardListAdapter extends BaseAdapter {
         View categoryView;
         //Inflating the view
         categoryView = inflater.inflate(R.layout.category_card_list, null);
-        if (urlToImg.size()<i+1)
+        String URL=var.categoryMap.get(category.get(i));
+
+        if (URL==null || URL=="")
         {return categoryView;}
         //initialising the variable of class Holder
         holder.textView = (TextView) categoryView.findViewById(R.id.category_text);
@@ -88,10 +90,8 @@ public class CategoryCardListAdapter extends BaseAdapter {
         //Setting the text and the image of the card with the values received from mainActivity
 
         holder.textView.setText(category.get(i));
-        Log.v("i is", "" + i);
-        Log.v("urlToImg is", "" + urlToImg.get(i));
 
-        Glide.with(context).load(urlToImg.get(i)).into(holder.imageView);
+        Glide.with(context).load(URL).into(holder.imageView);
 
         //On click should go to respective category products
         categoryView.setOnClickListener(new View.OnClickListener() {
