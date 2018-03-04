@@ -92,7 +92,7 @@ public class ProductsCardListAdapter extends BaseAdapter {
         //Setting the context
         productHolder.textViewProductName.setText(productListArray.get(i));
         productHolder.productValue.setText(productListArrayValue.get(i)+ " $");
-        productHolder.textViewNumber.setText("0");
+        productHolder.textViewNumber.setText(productCount.get(productListArray.get(i)).toString());
         Log.v("hashmap",""+productCount.keySet());
 
 
@@ -104,7 +104,7 @@ public class ProductsCardListAdapter extends BaseAdapter {
                 var.carthash.put(productListArray.get(i), productCount.get(productListArray.get(i)) + 1);
                 var.cartPrice.put(productListArray.get(i),Integer.parseInt(productListArrayValue.get(i)));
                 productCount.put(productListArray.get(i), var.carthash.get(productListArray.get(i)));
-                productHolder.textViewNumber.setText(productCount.get(productListArray.get(i)).toString());
+                productHolder.textViewNumber.setText(var.carthash.get(productListArray.get(i)).toString());
             }
         });
         productHolder.buttonRemove.setOnClickListener(new View.OnClickListener() {
