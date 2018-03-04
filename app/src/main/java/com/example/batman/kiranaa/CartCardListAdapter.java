@@ -1,12 +1,15 @@
 package com.example.batman.kiranaa;
 
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CartCardListAdapter extends BaseAdapter {
     private Cart context;
@@ -45,6 +48,7 @@ public class CartCardListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
+        final int position = i;
         View categoryView;
         CartHolder cartHolder = new CartHolder();
         price = String.valueOf(var.cartPrice.get(cartProducts[i]) * var.carthash.get(cartProducts[i]));
@@ -57,6 +61,21 @@ public class CartCardListAdapter extends BaseAdapter {
 
         cartHolder.cartProductName.setText(cartProducts[i]);
         cartHolder.cartProductPrice.setText("Price: " + price);
+
+        cartHolder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context.getActivity(), ""+var.carthash.get(cartProducts[position]), Toast.LENGTH_SHORT).show();
+                var.carthash.remove(cartProducts[position]);
+                Fragment cart = new Cart();
+                // Creting the bundle to send the clicked category to the nect fragment
+                //This will set the bundle as an argument to the object
+                // Transaction from current activity to next activity
+                android.app.FragmentManager fragmentManager = context.getActivity().getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_main, cart).commit();
+
+            }
+        });
         return categoryView;
 
     }

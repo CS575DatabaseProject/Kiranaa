@@ -11,14 +11,17 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@drawable/cleanernew"/>
+            android:layout_marginTop="20dp"
+            android:src="@drawable/web_hi_res_512"
+            android:background="@drawable/background_layout"
+            />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="250dp"
             android:text="Thank you for choosing kiranaa. Sit tight we will be sending your product to you as soon as possible."
             android:textSize="24sp"
             android:textStyle="italic" />

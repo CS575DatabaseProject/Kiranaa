@@ -44,6 +44,7 @@ public class Cart extends Fragment {
             final View cartView = inflater.inflate(R.layout.fragment_cart, container, false);
             listView = (ListView) cartView.findViewById(R.id.cart_listView);
             button = (Button) cartView.findViewById(R.id.chekout_payment);
+
             key = var.carthash.keySet().toArray(new String[0]);
             CartCardListAdapter cartCardListAdapter = new CartCardListAdapter(context,key);
 
