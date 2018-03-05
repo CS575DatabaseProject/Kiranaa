@@ -9,6 +9,7 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -30,7 +31,7 @@ public class Checkout extends Fragment {
     private EditText userCvvNumber;
     private EditText userCardExpDate;
     private Button checkOutButton;
-    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference, databaseChildRefrence;
     private Map<String,SaveUserInfo> userInfo = new HashMap<>();
     Singleton var = Singleton.getInstance();
 
@@ -38,6 +39,8 @@ public class Checkout extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
 
         if (var.variable == false) {
             Toast.makeText(getActivity(), "No item selected", Toast.LENGTH_SHORT).show();
@@ -61,6 +64,7 @@ public class Checkout extends Fragment {
 
             @Override
             public void onClick(View view) {
+
                 final String name = userName.getText().toString().trim();
                 final String address = userAddress.getText().toString().trim();
                 final String country = userCountry.getText().toString().trim();
@@ -76,7 +80,10 @@ public class Checkout extends Fragment {
                     databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://kiranaa-575.firebaseio.com/UserInfo/"+name);
                     userInfo.put(name, saveUserInfo );
                     databaseReference.setValue(saveUserInfo);
-
+                    databaseChildRefrence = FirebaseDatabase.getInstance().getReferenceFromUrl("https://kiranaa-575.firebaseio.com/UserInfo/"+name).child("user_order");
+                    HashMap<String, Integer> user_order = new HashMap<>();
+                    user_order = var.carthash;
+                    databaseChildRefrence.push().setValue(user_order);
                     var.carthash.clear();
                     var.cartPrice.clear();
                     var.variable = false;

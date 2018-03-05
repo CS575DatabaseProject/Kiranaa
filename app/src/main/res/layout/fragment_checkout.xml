@@ -4,136 +4,149 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context="com.example.batman.kiranaa.Checkout"
     android:background="@color/white"
-    android:id="@+id/fragment_checkout">
-
-<!-- TODO: Update blank fragment layout -->
-<RelativeLayout
+    android:id="@+id/fragment_checkout"
+    android:fitsSystemWindows="false"
+    android:focusable="true"
+    android:focusableInTouchMode="true" >
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    android:id="@+id/personalInfo"
-
-    >
-    <TextView
-        android:id="@+id/headTextPersonalInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Personal Info:"
-        android:paddingBottom="10dp"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:hint="@string/Name"
-        android:inputType="text"
-        android:id="@+id/userName"
-        android:layout_below="@+id/headTextPersonalInfo"
-
-        />
-
-    <EditText
-        android:id="@+id/userAddress"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/Address"
-        android:layout_marginBottom="10dp"
-        android:layout_below="@+id/userName"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/userAddress"
-        android:paddingBottom="10dp"
-        android:id="@+id/relativeAddressView">
-
-        <EditText
-            android:id="@+id/userCountry"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="@string/Country"/>
-
-        <EditText
-            android:id="@+id/userZipCode"
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="10dp"
-            android:ems="10"
-            android:inputType="number"
-            android:hint="@string/Zipcode"/>
-    </RelativeLayout>
-
+    android:fillViewport="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/relativeAddressView"
+        android:padding="10dp"
+        android:id="@+id/personalInfo"
+
+
         >
         <TextView
-            android:id="@+id/headTextPayment"
+            android:id="@+id/headTextPersonalInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Payment:"
+            android:text="Personal Info:"
             android:paddingBottom="10dp"/>
 
         <EditText
-            android:id="@+id/userCardNumber"
-            android:layout_below="@+id/headTextPayment"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="@string/Name"
+            android:inputType="text"
+            android:id="@+id/userName"
+            android:layout_below="@+id/headTextPersonalInfo"
+
+            />
+
+        <EditText
+            android:id="@+id/userAddress"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:ems="10"
-            android:inputType="number"
-            android:hint="@string/Credit_Card_Number" />
+            android:inputType="text"
+            android:hint="@string/Address"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/userName"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/userCardNumber"
+            android:layout_below="@+id/userAddress"
             android:paddingBottom="10dp"
-            android:id="@+id/relativePaymentView">
+            android:id="@+id/relativeAddressView">
+
             <EditText
-                android:id="@+id/userCvvNumber"
-                android:layout_width="150dp"
+                android:id="@+id/userCountry"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:ems="10"
-                android:inputType="number"
-                android:hint="@string/Cvv"/>
+                android:inputType="text"
+                android:hint="@string/Country"/>
 
             <EditText
-                android:id="@+id/userCardExpDate"
+                android:id="@+id/userZipCode"
                 android:layout_width="190dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginStart="10dp"
                 android:ems="10"
-                android:inputType="date"
-                android:hint="@string/date"/>
+                android:inputType="number"
+                android:hint="@string/Zipcode"/>
         </RelativeLayout>
 
-        <android.support.v7.widget.AppCompatCheckBox
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/relativePaymentView"
-            android:id="@+id/saveCard"
-            android:text="Save this card for faster checkout"/>
+            android:layout_height="match_parent"
+            android:layout_below="@id/relativeAddressView"
+            >
+            <TextView
+                android:id="@+id/headTextPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment:"
+                android:paddingBottom="10dp"/>
 
-        <Button
-            android:id="@+id/checkOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/saveCard"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="89dp"
-            android:text="Pay" />
+            <EditText
+                android:id="@+id/userCardNumber"
+                android:layout_below="@+id/headTextPayment"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:ems="10"
+                android:inputType="number"
+                android:hint="@string/Credit_Card_Number" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userCardNumber"
+                android:paddingBottom="10dp"
+                android:id="@+id/relativePaymentView">
+                <EditText
+                    android:id="@+id/userCvvNumber"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:hint="@string/Cvv"/>
+
+                <EditText
+                    android:id="@+id/userCardExpDate"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginStart="10dp"
+                    android:ems="10"
+                    android:inputType="date"
+                    android:hint="@string/date"/>
+            </RelativeLayout>
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relativePaymentView"
+                android:id="@+id/saveCard"
+                android:text="Save this card for faster checkout"/>
+
+            <Button
+                android:id="@+id/checkOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/saveCard"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="89dp"
+                android:text="Pay" />
+
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
-</RelativeLayout>
+
+
+
+</ScrollView>
 
 </FrameLayout>
