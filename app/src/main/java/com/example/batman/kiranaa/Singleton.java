@@ -8,6 +8,7 @@ public class Singleton {
     HashMap<String,Integer> cartPrice = new HashMap<>();
     HashMap<String,String> categoryMap = new HashMap<>();
     HashMap<String,String> ProductMap = new HashMap<>();
+    int totalPrice = 0;
     boolean variable = false;
     private Singleton(){}
     public static Singleton getInstance(){

@@ -11,13 +11,22 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="470dp"
             android:id="@+id/cart_listView" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/product_total_price"
+            android:layout_below="@+id/cart_listView"
+            android:textSize="16dp"
+            android:padding="15dp"
+            />
         <Button
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:id="@+id/chekout_payment"
-            android:layout_below="@+id/cart_listView"
+            android:layout_below="@+id/product_total_price"
             android:text="Checkout"
             android:layout_centerInParent="true"/>
     </RelativeLayout>

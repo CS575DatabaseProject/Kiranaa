@@ -102,7 +102,7 @@ public class ProductsCardListAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(context.getActivity(), ""+Integer.parseInt(productListArrayValue.get(i)), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context.getActivity(), ""+Integer.parseInt(productListArrayValue.get(i)), Toast.LENGTH_SHORT).show();
                 var.carthash.put(productListArray.get(i), productCount.get(productListArray.get(i)) + 1);
                 var.cartPrice.put(productListArray.get(i),Integer.parseInt(productListArrayValue.get(i)));
                 productCount.put(productListArray.get(i), var.carthash.get(productListArray.get(i)));

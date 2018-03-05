@@ -18,6 +18,7 @@ public class CartCardListAdapter extends BaseAdapter {
     private Singleton var = Singleton.getInstance();
 
     private String price = null;
+    private int tempPrice = 0;
 
     public CartCardListAdapter(Cart cart, String[] key) {
         context = cart;
@@ -52,7 +53,8 @@ public class CartCardListAdapter extends BaseAdapter {
         View categoryView;
         CartHolder cartHolder = new CartHolder();
         price = String.valueOf(var.cartPrice.get(cartProducts[i]) * var.carthash.get(cartProducts[i]));
-
+        tempPrice = var.cartPrice.get(cartProducts[i]) * var.carthash.get(cartProducts[i]);
+        var.totalPrice = tempPrice + var.totalPrice;
         //Inflating the view
         categoryView = inflater.inflate(R.layout.cart_card_list, null);
         cartHolder.cartProductName = (TextView) categoryView.findViewById(R.id.cart_product_name);
@@ -62,15 +64,22 @@ public class CartCardListAdapter extends BaseAdapter {
         cartHolder.cartProductName.setText(cartProducts[i]);
         cartHolder.cartProductPrice.setText("Price: " + price);
 
+
+
         cartHolder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context.getActivity(), ""+var.carthash.get(cartProducts[position]), Toast.LENGTH_SHORT).show();
+
                 var.carthash.remove(cartProducts[position]);
                 Fragment cart = new Cart();
                 // Creting the bundle to send the clicked category to the nect fragment
                 //This will set the bundle as an argument to the object
                 // Transaction from current activity to next activity
+
+                if (var.carthash.isEmpty()){
+                    var.variable = false;
+
+                }
                 android.app.FragmentManager fragmentManager = context.getActivity().getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.content_main, cart).commit();
 

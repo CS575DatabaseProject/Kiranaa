@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class Cart extends Fragment {
     Cart context = this;
     private ListView listView;
     private Button button;
+    private TextView totalPrice;
     Singleton var = Singleton.getInstance();
     String [] key;
 
@@ -44,7 +46,8 @@ public class Cart extends Fragment {
             final View cartView = inflater.inflate(R.layout.fragment_cart, container, false);
             listView = (ListView) cartView.findViewById(R.id.cart_listView);
             button = (Button) cartView.findViewById(R.id.chekout_payment);
-
+            totalPrice = (TextView) cartView.findViewById(R.id.product_total_price);
+            totalPrice.setText("Total Price :"+ var.totalPrice);
             key = var.carthash.keySet().toArray(new String[0]);
             CartCardListAdapter cartCardListAdapter = new CartCardListAdapter(context,key);
 

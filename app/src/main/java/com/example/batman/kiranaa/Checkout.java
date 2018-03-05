@@ -71,14 +71,21 @@ public class Checkout extends Fragment {
                 if (name.isEmpty() || address.isEmpty() || country.isEmpty() || zipcode.isEmpty() || cardnumber.isEmpty() || cvvnumber.isEmpty() || cardexpdate.isEmpty()) {
                     Toast.makeText(getActivity(), "Values can not be left empty", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getContext(), "Thank You for choosing Kiranaa", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "Thank You for choosing Kiranaa", Toast.LENGTH_SHORT).show();
                     SaveUserInfo saveUserInfo = new SaveUserInfo(address,country,zipcode,cardnumber,cardexpdate,cvvnumber);
                     databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://kiranaa-575.firebaseio.com/UserInfo/"+name);
                     userInfo.put(name, saveUserInfo );
                     databaseReference.setValue(saveUserInfo);
+
+                    var.carthash.clear();
+                    var.cartPrice.clear();
+                    var.variable = false;
+
+
                     Fragment thankyou = new ThankYouFragment();
                     FragmentManager fragmentManager = getActivity().getFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.fragment_checkout, thankyou).commit();
+
 
 
                 }
