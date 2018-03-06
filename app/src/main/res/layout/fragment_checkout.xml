@@ -7,7 +7,8 @@ tools:context="com.example.batman.kiranaa.Checkout"
     android:id="@+id/fragment_checkout"
     android:fitsSystemWindows="false"
     android:focusable="true"
-    android:focusableInTouchMode="true" >
+    android:focusableInTouchMode="true"
+    android:backgroundTint="@color/colorLightGrey">
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -137,7 +138,10 @@ tools:context="com.example.batman.kiranaa.Checkout"
                 android:layout_below="@+id/saveCard"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="89dp"
-                android:text="Pay" />
+                android:text="Pay"
+                android:background="@drawable/curve_button"
+                android:textColor="@color/colorBlue"
+                />
 
 
         </RelativeLayout>

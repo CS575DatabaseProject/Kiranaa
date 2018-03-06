@@ -2,27 +2,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.batman.kiranaa.Products">
+    tools:context="com.example.batman.kiranaa.Products"
+    android:background="@color/colorGrey">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         >
 
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:id="@+id/productsList" />
-
-
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="460dp"
+            android:id="@+id/productsList"
+            android:divider="@null"
+            android:paddingBottom="10dp"/>
 
         <Button
-        android:layout_width="150dp"
-        android:layout_height="60dp"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
             android:layout_below="@+id/productsList"
             android:id="@+id/buttonAddToCart"
             android:text="Add To Cart"
             android:layout_centerInParent="true"
+            android:background="@drawable/curve_button"
+            android:textColor="@color/colorBlue"
             />
 
 

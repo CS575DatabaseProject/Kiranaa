@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.batman.kiranaa.ThankYouFragment"
-    android:background="@color/white">
+    android:background="@color/colorLightGrey">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,13 +18,14 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="140dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="250dp"
             android:text="Thank you for choosing kiranaa. Sit tight we will be sending your product to you as soon as possible."
             android:textSize="24sp"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:padding="10dp"/>
 
     </RelativeLayout>
 
