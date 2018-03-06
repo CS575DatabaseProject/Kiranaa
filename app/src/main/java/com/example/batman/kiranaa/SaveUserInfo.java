@@ -15,4 +15,13 @@ public class SaveUserInfo {
         user_card_expiry = userCardExp;
         user_cvv_number = userCardCvv;
     }
+    public SaveUserInfo(String userAdd,String userCountry ,String userZipCode,String userCardNum,String userCardExp,String userCardCvv,HashMap<String,Integer> userorder) {
+        user_address = userAdd;
+        user_country = userCountry;
+        user_zip_code = userZipCode;
+        user_card_number = userCardNum;
+        user_card_expiry = userCardExp;
+        user_cvv_number = userCardCvv;
+        user_order=user_order;
+    }
 }
