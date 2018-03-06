@@ -26,17 +26,26 @@ public class Cart extends Fragment {
     private TextView totalPrice;
     Singleton var = Singleton.getInstance();
     String [] key;
+    int tempPrice ;
+    int count = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.v("cart------------------",""+var.carthash);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        count++;
+//        Toast.makeText(getActivity(), "Oncreate method call", Toast.LENGTH_SHORT).show();
         if(var.variable == false){
             Toast.makeText(getActivity(), "Cart is empty", Toast.LENGTH_SHORT).show();
             return null;
@@ -47,9 +56,18 @@ public class Cart extends Fragment {
             listView = (ListView) cartView.findViewById(R.id.cart_listView);
             button = (Button) cartView.findViewById(R.id.chekout_payment);
             totalPrice = (TextView) cartView.findViewById(R.id.product_total_price);
-            totalPrice.setText("Total Price :"+ var.totalPrice);
+
+
             key = var.carthash.keySet().toArray(new String[0]);
             CartCardListAdapter cartCardListAdapter = new CartCardListAdapter(context,key);
+            for (int i = 0; i < key.length; i++) {
+                tempPrice = var.cartPrice.get(key[i]) * var.carthash.get(key[i]);
+                var.totalPrice = tempPrice + var.totalPrice;
+            }
+            totalPrice.setText("Total Price :"+ var.totalPrice);
+            tempPrice = 0;
+            var.totalPrice = 0;
+
 
             listView.setAdapter(cartCardListAdapter);
             button.setOnClickListener(new View.OnClickListener() {

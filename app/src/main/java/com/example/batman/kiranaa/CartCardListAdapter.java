@@ -53,8 +53,8 @@ public class CartCardListAdapter extends BaseAdapter {
         View categoryView;
         CartHolder cartHolder = new CartHolder();
         price = String.valueOf(var.cartPrice.get(cartProducts[i]) * var.carthash.get(cartProducts[i]));
-        tempPrice = var.cartPrice.get(cartProducts[i]) * var.carthash.get(cartProducts[i]);
-        var.totalPrice = tempPrice + var.totalPrice;
+//        tempPrice = var.cartPrice.get(cartProducts[i]) * var.carthash.get(cartProducts[i]);
+//        var.totalPrice = tempPrice + var.totalPrice;
         //Inflating the view
         categoryView = inflater.inflate(R.layout.cart_card_list, null);
         cartHolder.cartProductName = (TextView) categoryView.findViewById(R.id.cart_product_name);
