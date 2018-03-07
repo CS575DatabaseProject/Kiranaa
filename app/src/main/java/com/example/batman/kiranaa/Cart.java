@@ -73,6 +73,11 @@ public class Cart extends Fragment {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    for (String key : var.carthash.keySet()) {
+                        Log.v("carthashkey",""+key);
+                        OrderInfo oi=new OrderInfo(key,var.carthash.get(key),var.cartPrice.get(key));
+                        var.orderList.add(oi);
+                    }
                     Fragment checkout = new Checkout();
                     FragmentManager fragmentManager = getActivity().getFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.content_main, checkout).commit();

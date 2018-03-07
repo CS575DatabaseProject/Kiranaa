@@ -29,6 +29,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
@@ -57,8 +59,11 @@ public class Products extends Fragment {
 
         // getting the bundle from the previous fragment with the clicked category value
         bundle = getArguments();
+
         currentCategory = bundle.getString("CurrentCategoryName");
+        var.Category=currentCategory;
         // inflating the view
+
         final View rootView = inflater.inflate(R.layout.fragment_products, container, false);
         // Initialising the list view for th products of the respective category
         productsListview = (ListView) rootView.findViewById(R.id.productsList) ;
@@ -135,7 +140,14 @@ public class Products extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context.getActivity(), "Added to cart", Toast.LENGTH_SHORT).show();
+
                 var.variable = true;
+
+
+
+
+
+                Log.v("orderlist",""+var.orderList);
 
             }
         });

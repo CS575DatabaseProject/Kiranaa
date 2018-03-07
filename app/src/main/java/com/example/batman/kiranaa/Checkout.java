@@ -102,7 +102,8 @@ public class Checkout extends Fragment {
                                     if (item.getKey().toString().equals(name)) {
                                         Log.v("in if", "in if");
                                         Log.v("cart", "cart:" + user_order);
-                                        databaseChildRefrence.child("user_order").push().setValue(user_order);
+                                        databaseChildRefrence.child("user_order").push().setValue(var.orderList);
+                                        var.orderList.clear();
                                         Duplicate = true;
                                         recordStatus = "updated";
                                         break;
@@ -114,7 +115,8 @@ public class Checkout extends Fragment {
                                     recordStatus = "added";
                                     DatabaseReference dref= databaseReference.child(name);
                                     dref.setValue(saveUserInfo);
-                                    databaseChildRefrence.child("user_order").push().setValue(user_order);
+                                    databaseChildRefrence.child("user_order").push().setValue(var.orderList);
+                                    var.orderList.clear();
                                 }
                             }
                         }
