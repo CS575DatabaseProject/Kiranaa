@@ -93,7 +93,7 @@ public class ProductsCardListAdapter extends BaseAdapter {
         Glide.with(context).load(URL).into(productHolder.imageView);
         //Setting the context
         productHolder.textViewProductName.setText(productListArray.get(i));
-        productHolder.productValue.setText(productListArrayValue.get(i)+ " $");
+        productHolder.productValue.setText("$"+productListArrayValue.get(i) );
         productHolder.textViewNumber.setText(productCount.get(productListArray.get(i)).toString());
         Log.v("hashmap",""+productCount.keySet());
 

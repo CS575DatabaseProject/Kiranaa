@@ -237,6 +237,12 @@ public class MainActivity extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.content_main, checkout).commit();
 
         }
+        else if (id == R.id.nav_history) {
+            Fragment history = new OrderHistory();
+            FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_main, history).commit();
+
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

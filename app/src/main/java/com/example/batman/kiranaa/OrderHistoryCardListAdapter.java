@@ -11,16 +11,18 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
+
 
 public class OrderHistoryCardListAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
     OrderHistory context;
-    OrderReader[]  newOrderReader;
+   ArrayList<OrderReader>  newOrderReader=new ArrayList<OrderReader>();
     Singleton var = Singleton.getInstance();
     int listLength=0;
 
 
-    public OrderHistoryCardListAdapter(OrderHistory  orderHistory, OrderReader[] orderReaders){
+    public OrderHistoryCardListAdapter(OrderHistory  orderHistory, ArrayList<OrderReader> orderReaders){
         context = orderHistory;
         inflater = (LayoutInflater) context.getActivity().getSystemService(context.getActivity().LAYOUT_INFLATER_SERVICE);
         newOrderReader = orderReaders;
@@ -29,7 +31,8 @@ public class OrderHistoryCardListAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return newOrderReader.length;
+        return newOrderReader.size();
+
     }
 
     @Override
@@ -59,12 +62,12 @@ public class OrderHistoryCardListAdapter extends BaseAdapter {
         orderListHolder.imageView = orderHistoryView.findViewById(R.id.order_product_image);
 
 
-            orderListHolder.orderName.setText(newOrderReader[i].Product);
-            orderListHolder.orderDate.setText(newOrderReader[i].OrderDate);
-            orderListHolder.orderValue.setText(newOrderReader[i].Count);
-            orderListHolder.orderPrice.setText(newOrderReader[i].Amount);
-            Log.v("url is",""+var.ProductMap.get(newOrderReader[i].Product));
-            Glide.with(context).load(var.ProductMap.get(newOrderReader[i].Product)).into(orderListHolder.imageView);
+            orderListHolder.orderName.setText(newOrderReader.get(i).Product);
+            orderListHolder.orderDate.setText(newOrderReader.get(i).OrderDate);
+            orderListHolder.orderValue.setText(newOrderReader.get(i).Count);
+            orderListHolder.orderPrice.setText("$"+newOrderReader.get(i).Amount);
+            Log.v("url is",""+var.ProductMap.get(newOrderReader.get(i).Product));
+            Glide.with(context).load(var.ProductMap.get(newOrderReader.get(i).Product)).into(orderListHolder.imageView);
 
         return orderHistoryView;
     }

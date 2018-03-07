@@ -29,13 +29,14 @@ import org.json.JSONArray;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 
 public class OrderHistory extends Fragment {
     OrderHistory context = this;
-
+ArrayList<OrderReader> orderList=new ArrayList<OrderReader>();
     private ListView orderListView;
     private DatabaseReference databaseReference;
 
@@ -66,12 +67,17 @@ public class OrderHistory extends Fragment {
 
                 try {
                     orderReader = mapper.readValue(json,OrderReader[].class);
+                    for (int k=0;k<orderReader.length;k++)
+                    {
+                        orderList.add(orderReader[k]);
+                    }
                     Log.v("order value",""+orderReader);
+
 
 
                         //Log.v("order value",""+mapper.writeValueAsString(orderReader[j]));
                         callView();
-                        Log.v("calview ended","callview finished");
+                       // Log.v("calview ended","callview finished");
 
 
 
@@ -106,7 +112,7 @@ public class OrderHistory extends Fragment {
 
             }
         });
-
+      //  callView();
         return orderHistoryInflate;
 
     }
@@ -115,7 +121,7 @@ public class OrderHistory extends Fragment {
 //        {
             Log.v("callviewloop","callviewloop:");
             //Log.v("callviewloop","order:"+new ObjectMapper().writeValueAsString(orderReader[i]));
-            orderHistoryCardListAdapter = new OrderHistoryCardListAdapter(context, orderReader);
+            orderHistoryCardListAdapter = new OrderHistoryCardListAdapter(context, orderList);
             orderListView.setAdapter(orderHistoryCardListAdapter);}
 
     //}

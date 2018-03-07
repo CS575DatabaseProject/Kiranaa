@@ -12,7 +12,7 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="460dp"
+            android:layout_height="540dp"
             android:id="@+id/productsList"
             android:divider="@null"
             android:paddingBottom="10dp"/>
