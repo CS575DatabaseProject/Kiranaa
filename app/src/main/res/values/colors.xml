@@ -6,4 +6,7 @@
     <color name="colorGrey">#E0E0E0</color>
     <color name="colorBlue">#0288D1</color>
     <color name="colorLightGrey">#FAFAFA</color>
+    <color name="cart">#1E88E5</color>
+    <color name="button">#1565C0</color>
+    <color name="black">#212121</color>
 </resources>

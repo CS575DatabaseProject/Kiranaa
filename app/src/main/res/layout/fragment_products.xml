@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.batman.kiranaa.Products"
     android:background="@color/colorGrey">
-
+    <!--android:layout_height="540dp"-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,17 +16,26 @@
             android:id="@+id/productsList"
             android:divider="@null"
             android:paddingBottom="10dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/productsList"
+        android:background="@color/white"
+        android:padding="5dp">
 
         <Button
+            android:id="@+id/buttonAddToCart"
             android:layout_width="150dp"
             android:layout_height="60dp"
-            android:layout_below="@+id/productsList"
-            android:id="@+id/buttonAddToCart"
-            android:text="Add To Cart"
             android:layout_centerInParent="true"
             android:background="@drawable/curve_button"
-            android:textColor="@color/colorBlue"
-            />
+            android:elevation="5dp"
+            android:text="Add To Cart"
+
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
 
 
     </RelativeLayout>

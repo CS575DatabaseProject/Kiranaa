@@ -139,9 +139,15 @@ public class Products extends Fragment {
         cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context.getActivity(), "Added to cart", Toast.LENGTH_SHORT).show();
 
-                var.variable = true;
+                if(!var.carthash.isEmpty()){
+                    Toast.makeText(context.getActivity(), "Added to cart", Toast.LENGTH_SHORT).show();
+                    var.variable = true;
+                }
+                else {
+                    Toast.makeText(context.getActivity(), "Nothing to add", Toast.LENGTH_SHORT).show();
+                }
+
 
 
 

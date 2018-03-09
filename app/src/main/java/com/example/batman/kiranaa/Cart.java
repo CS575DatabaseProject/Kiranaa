@@ -64,7 +64,7 @@ public class Cart extends Fragment {
                 tempPrice = var.cartPrice.get(key[i]) * var.carthash.get(key[i]);
                 var.totalPrice = tempPrice + var.totalPrice;
             }
-            totalPrice.setText("Total Price :"+ var.totalPrice);
+            totalPrice.setText("Total Price: $"+ var.totalPrice);
             tempPrice = 0;
             var.totalPrice = 0;
 

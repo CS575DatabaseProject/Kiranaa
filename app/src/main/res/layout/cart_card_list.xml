@@ -48,7 +48,7 @@
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/curve_button"
                 android:text="Delete"
-                android:textColor="@color/colorBlue"/>
+                android:textColor="@color/white"/>
 
 
 

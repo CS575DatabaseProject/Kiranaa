@@ -62,7 +62,7 @@ public class CartCardListAdapter extends BaseAdapter {
         cartHolder.delete = (Button) categoryView.findViewById(R.id.cart_product_delete);
 
         cartHolder.cartProductName.setText(cartProducts[i]);
-        cartHolder.cartProductPrice.setText("Price: " + price);
+        cartHolder.cartProductPrice.setText("Price: $" + price);
 
 
 
